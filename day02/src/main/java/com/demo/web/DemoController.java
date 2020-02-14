@@ -12,9 +12,9 @@ public class DemoController {
 
     @GetMapping("/list")
     @ResponseBody
-    public String getUser(UserList userList){
+    public String getUser(UserList userList) {
         log.info(userList.toString());
-        return  userList.toString();
+        return userList.toString();
     }
 
 }

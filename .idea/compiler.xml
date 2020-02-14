@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="day03" />
         <module name="day02" />
         <module name="day01" />
       </profile>
@@ -13,6 +14,7 @@
     <bytecodeTargetLevel>
       <module name="day01" target="1.8" />
       <module name="day02" target="1.8" />
+      <module name="day03" target="1.8" />
       <module name="demo1" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -20,6 +22,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="day01" options="-parameters" />
       <module name="day02" options="-parameters" />
+      <module name="day03" options="-parameters" />
       <module name="demo1" options="-parameters" />
     </option>
   </component>

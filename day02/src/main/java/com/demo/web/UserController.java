@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
     @GetMapping("/")//get请求:用户列表
-    public List<User> listUsers(){
+    public List<User> listUsers() {
         List<User> list = new ArrayList<User>();
         User user = new User();
         user.setName("1");
@@ -21,22 +21,26 @@ public class UserController {
         list.add(user);
         return list;
     }
+
     @PostMapping("/")// post请求:新增用户
-    public String postUser(@RequestBody(required = false) User user){
-        log.info(user+"...");
+    public String postUser(@RequestBody(required = false) User user) {
+        log.info(user + "...");
         return "success";
     }
+
     @GetMapping("/{id}")// get请求:根据id获取用户
-    public User getUser(@PathVariable Long id){
-        log.info(id+"..");
+    public User getUser(@PathVariable Long id) {
+        log.info(id + "..");
         return new User();
     }
+
     @PutMapping("/{id}")// put请求:根据id,user更新用户
-    public String putUser(@PathVariable Long id,@RequestBody User user){
+    public String putUser(@PathVariable Long id, @RequestBody User user) {
         return "success";
     }
+
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable Long id){
+    public String deleteUser(@PathVariable Long id) {
         return "success";
     }
 }
