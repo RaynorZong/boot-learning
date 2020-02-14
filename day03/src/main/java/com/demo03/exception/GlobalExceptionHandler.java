@@ -1,6 +1,5 @@
 package com.demo03.exception;
 
-import com.alibaba.fastjson.JSONObject;
 import com.demo03.config.ErrorMessage;
 import com.demo03.config.RestResult;
 import lombok.extern.java.Log;
