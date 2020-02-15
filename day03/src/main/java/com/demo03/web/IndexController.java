@@ -4,12 +4,10 @@ import com.demo03.config.ErrorMessage;
 import com.demo03.domain.User;
 import com.demo03.exception.LogicException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Controller
 public class IndexController {
@@ -18,8 +16,24 @@ public class IndexController {
     public String index(){
         return "/index.html";
     }
+
     @GetMapping ("/get")
     public @ResponseBody User getUser(){
+        User u = new User();
+        u.setName("x");
+        u.setTime(LocalDateTime.now());
+        return u;
+    }
+
+    @PostMapping("/map")
+    public @ResponseBody User getMap(@RequestBody Map<String,Object> map){
+        User u = new User();
+        u.setName("x");
+        u.setTime(LocalDateTime.now());
+        return u;
+    }
+    @PostMapping("/map1")
+    public @ResponseBody User getMap1(@RequestParam Map<String,Object> map){
         User u = new User();
         u.setName("x");
         u.setTime(LocalDateTime.now());
