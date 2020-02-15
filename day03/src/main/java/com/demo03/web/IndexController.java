@@ -30,7 +30,7 @@ public class IndexController {
      */
     @GetMapping(path = "logicException")
     public void logicException() {
-        throw LogicException.le(ErrorMessage.LOGIC_EXCEPTION.msg());
+        throw LogicException.getLogicException(ErrorMessage.LOGIC_EXCEPTION.msg());
     }
 
     /**
