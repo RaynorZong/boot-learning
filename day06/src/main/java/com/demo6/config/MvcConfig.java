@@ -50,7 +50,7 @@ public class MvcConfig implements WebMvcConfigurer{
         );
         fastJsonHttpMessageConverter.setFastJsonConfig(config);
         List<MediaType> fastMediaTypes = new ArrayList<>();
-        fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+        fastMediaTypes.add(MediaType.APPLICATION_JSON);
         fastJsonHttpMessageConverter.setSupportedMediaTypes(fastMediaTypes);
         converters.add(fastJsonHttpMessageConverter);
 
