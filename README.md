@@ -23,5 +23,6 @@ day05:
     
 day06:
     MIME:json,xml.form,byte[],file
+    
 day07:
     Jpa
