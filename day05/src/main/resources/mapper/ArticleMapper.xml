@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.mapper.ArticleMapper">
+<!---->
+    <select id="selectPage"  resultType="Article">
+        select * from t_article
+    </select>
+    <select id="selectArticleByXlh"  resultType="Article">
+        select * from t_article where xlh = #{xlh}
+    </select>
+    <insert id="addArticle" parameterType="Article">
+        insert into t_article
+        (xlh,user_xlh,cover_url,title,digest,is_original,is_top,status,is_mass,content,create_date,create_time,original_url,read_num)
+        values
+        (#{xlh},#{user_xlh},#{cover_url},#{title},#{digest},#{is_original},#{is_top},#{status},#{is_mass},#{content},
+            #{create_date},#{create_time},#{original_url},#{read_num})
+    </insert>
+    <update id="updateArticle" parameterType="Article">
+        update  t_article set user_xlh = #{user_xlh}, cover_url=#{cover_url},title=#{title},digest=#{digest},
+            is_original=#{is_original},is_top=#{is_top},status=#{status},
+            is_mass=#{is_mass},content=#{content},create_date=#{create_date},create_time=#{create_time},
+            original_url=#{original_url},read_num=#{read_num}
+        where xlh = #{xlh}
+    </update>
+    <delete id="deleteArticle" parameterType="String">
+        delete from t_article where xlh = #{xlh}
+    </delete>
+</mapper>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>微信编辑器</title>
+    <script src="/static/admin/ueditor/ueditor.config.js"></script>
+    <script src="/static/admin/ueditor/ueditor.all.min.js"></script>
+    <script src="/static/admin/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <link  rel="stylesheet" type="text/css" href="/static/admin/css/style.css"/>
+    <script src="/static/admin/ueditor/index.js"></script>
+    <script src="/static/admin/ueditor/third-party/jquery-1.10.2.min.js"></script>
+    <script>
+        $(function () {
+            $("#file").change(function () {
+                if($(this).val() != ""){
+                    fileLoad(this);
+                }
+            })
+        })
+        function save() {
+            var param = {};
+            param.title = $("#title").val();
+            param.author = $("#author").val();
+            param.digest = $("#digest").val();
+            param.content = UE.getEditor('editor').getContent();
+            param.cover_url = $("#cover_url img").attr("src");
+            $.ajax({
+                url:"/article/",
+                method:'post',
+                data:JSON.stringify(param),
+                dataType:'json',
+                contentType:'application/json',
+                success:function (data) {
+                    var res = eval(data);
+                    console.log(eval(data))
+                    if(res.code=='1'){
+                        alert("success");
+                        $(location).attr('href', '/index');
+                    }else{
+                        alert(res.errorMessage);
+                    }
+                }
+            })
+        }
+        function fileLoad(){
+            var form = new FormData();
+            form.append("file", document.getElementById("file").files[0]);
+            $.ajax({
+                url: "/upload",    //后台url
+                data: form,
+                cache: false,
+                async: false,
+                type: "POST",          //类型，POST或者GET
+                dataType: 'json',       //数据返回类型，可以是xml、json等
+                processData: false,
+                contentType: false,
+                success: function (data) {   //成功，回调函数
+                    var res = eval(data);
+                    if (res.code == '1') {
+                        var pic="/static/admin/upload/"+res.data.fileName;
+                        $("#cover_url img").attr("src",pic);
+                    } else {
+                        alert("失败");
+                    }
+                }
+            });
+        }
+
+    </script>
+</head>
+
+<body class="text">
+    <input id="title" class="header-title" type="text" placeholder="请在这里输入标题" />
+    <input id="author" class="header-people" type="text" placeholder="请输入作者" />
+    <script id="editor" type="text/plain" style="width:100%;height:300px;"></script>
+    <div class="box">
+        <div class="first-title">封面摘要</div>
+        <div class="fm">
+            <div class="fm-choose">
+                <div class="choose-btn">
+                    <div class="big">+</div>
+                    <div> 选择封面
+                    </div>
+                    <input class="choose" id="file" type="file" />
+                    <p id="cover_url"><img src="" width=200></p>
+                </div>
+            </div>
+            <div class="zy-text">
+                <textarea id="digest" placeholder="选填，摘要会在订阅号，转发文章的场景显露，帮助读者快速了解内容，如不填写则抓取正文默认前54字"></textarea>
+                <div class="num">0/120</div>
+            </div>
+        </div>
+        <div class="first-title">原创：未声明</div>
+        <button class="self">声明原创</button>
+        <div class="first-title space">文章设置</div>
+        <div class="link">
+            <input type="checkbox" />
+            原文链接 >
+        </div>
+        <div class="line"></div>
+        <div class="act">
+            <span class="number">正文字数 0</span>
+            <!--<button class="btn" >保存并且转发</button>
+            <button class="btn">保存预览</button>-->
+            <button class="btn" onclick="save()">保存</button>
+        </div>
+    </div>
+</body>
+
+</html>

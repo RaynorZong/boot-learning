@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.MessageMapper">
+
+    <resultMap type="com.demo.model.Message" id="MessageMap">
+        <result property="xlh" column="xlh" jdbcType="VARCHAR"/>
+        <result property="userXlh" column="user_xlh" jdbcType="VARCHAR"/>
+        <result property="articleXlh" column="article_xlh" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="isVisible" column="is_visible" jdbcType="INTEGER"/>
+        <result property="createDate" column="create_date" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="likeNum" column="like_num" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MessageMap">
+        select
+          xlh, user_xlh, article_xlh, content, is_visible, create_date, create_time, like_num
+        from test.t_message
+        where xlh = #{xlh}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MessageMap">
+        select
+          xlh, user_xlh, article_xlh, content, is_visible, create_date, create_time, like_num
+        from test.t_message
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MessageMap">
+        select
+          xlh, user_xlh, article_xlh, content, is_visible, create_date, create_time, like_num
+        from test.t_message
+        <where>
+            <if test="xlh != null and xlh != ''">
+                and xlh = #{xlh}
+            </if>
+            <if test="userXlh != null and userXlh != ''">
+                and user_xlh = #{userXlh}
+            </if>
+            <if test="articleXlh != null and articleXlh != ''">
+                and article_xlh = #{articleXlh}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="isVisible != null">
+                and is_visible = #{isVisible}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="likeNum != null">
+                and like_num = #{likeNum}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="xlh" useGeneratedKeys="true">
+        insert into test.t_message(user_xlh, article_xlh, content, is_visible, create_date, create_time, like_num)
+        values (#{userXlh}, #{articleXlh}, #{content}, #{isVisible}, #{createDate}, #{createTime}, #{likeNum})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update test.t_message
+        <set>
+            <if test="userXlh != null and userXlh != ''">
+                user_xlh = #{userXlh},
+            </if>
+            <if test="articleXlh != null and articleXlh != ''">
+                article_xlh = #{articleXlh},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="isVisible != null">
+                is_visible = #{isVisible},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="likeNum != null">
+                like_num = #{likeNum},
+            </if>
+        </set>
+        where xlh = #{xlh}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from test.t_message where xlh = #{xlh}
+    </delete>
+
+</mapper>

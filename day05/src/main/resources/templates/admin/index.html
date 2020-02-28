@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>消息列表</title>
+		<link rel="stylesheet" type="text/css" href="/static/admin/css/style.css"/>
+		<script src="/static/admin/ueditor/third-party/jquery-1.10.2.min.js"></script>
+		<script>
+			$(function () {
+				init();
+			})
+			function add() {
+				window.location.href = '/add';
+			}
+			function detail(xlh){
+				window.location.href = encodeURI('/templates/admin/details.html?xlh='+xlh);
+			}
+			function init() {
+				var pageSize = '5';
+				var pageNum = '1';
+				$.ajax({
+					url:"/article/"+pageSize+"/"+pageNum,
+					method:'get',
+					data:"",
+					dataType:'json',
+					contentType:'application/json',
+					success:function (data) {
+						var res = eval(data);
+						console.log(eval(data))
+						if(res.code=='1'){
+							var list = res.data.list;
+							for(var i=0;i<list.length;i++){
+								var html = "<div class='news_list'> <div class='news_text' onclick='detail(\"" + list[i].xlh +
+										"\")'>" + "<div class='news_title'>" + list[i].title +
+										"</div> <div class='news_time'>" +list[i].create_date +
+										"</div> <div clas='news_pic'><img src='" +list[i].cover_url +
+										"'/></div>" +
+										"</div>" +
+										"</div>"
+								$(".news_box").append(html);
+							}
+
+						}else{
+							alert(res.errorMessage);
+						}
+					}
+				})
+			}
+
+		</script>
+	</head>
+	<body>
+		<div class="top_new_btn">
+			<button class="set_news" onclick="add()">发消息</button>
+		</div>
+		<div class="news_box">
+			<div class="news_histroy">
+				<div class="histroy_title">历史消息</div>
+				<div class="all">全部</div>
+			</div>
+		</div>
+	</body>
+</html>
