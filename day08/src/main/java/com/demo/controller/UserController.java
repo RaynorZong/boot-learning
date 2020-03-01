@@ -6,8 +6,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.demo.entity.User;
 import com.demo.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.demo.task.TestTaskAsync;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.concurrent.Future;
 
 /**
  * <p>
@@ -19,9 +24,10 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
-    @Autowired
+    @Resource
     private IUserService userService;
 
     @GetMapping("/{limit}/{offset}/")
@@ -34,8 +40,36 @@ public class UserController {
         QueryWrapper<User> queryWrapper =new QueryWrapper();
         queryWrapper.eq("name",user.getName())
                 .eq("password",user.getPassword())
-                .orderByDesc("name");
+                .orderByDesc("time");
         IPage<User> p = new Page<User>(offset,limit);
         return userService.page(p,queryWrapper);
+    }
+
+    @PostMapping("/query")
+    public List<User> userList(@RequestParam String name){
+        return userService.selectUserByName(name);
+    }
+
+    @Resource
+    private TestTaskAsync testTaskAsync;
+
+    @GetMapping("/async")
+    public String async(){
+        log.info("11111");
+        testTaskAsync.test();
+        return "ok";
+    }
+    @GetMapping("/async1")
+    public String async1() throws InterruptedException {
+        Future<String> future = testTaskAsync.get();
+//        while(true){
+//            if(future.isDone()){
+//                log.info("is done");
+//                break;
+//            }
+//            Thread.sleep(200);
+//        }
+        log.info("xxxx");
+        return "ok";
     }
 }

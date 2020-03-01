@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/core.js"></script>
+    <script>
+
+
+        $(function () {
+            setInterval("test()",500);
+
+
+
+        })
+        function  test() {
+            var pre = $.ajax({
+                method:get,
+                url:"localhost:8080/user/async1",
+                dataType:'json',
+                success:function(data){
+
+                }
+            })
+        }
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

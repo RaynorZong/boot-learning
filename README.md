@@ -26,3 +26,8 @@ day06:
     
 day07:
     Jpa
+
+day08:
+    Mybatis-plus
+    CodeGenerator
+    @Async
