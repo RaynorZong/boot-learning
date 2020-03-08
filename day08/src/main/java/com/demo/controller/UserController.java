@@ -4,6 +4,7 @@ package com.demo.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.demo.Utils.Utils;
 import com.demo.entity.User;
 import com.demo.service.IUserService;
 import com.demo.task.TestTaskAsync;
@@ -62,14 +63,21 @@ public class UserController {
     @GetMapping("/async1")
     public String async1() throws InterruptedException {
         Future<String> future = testTaskAsync.get();
-//        while(true){
-//            if(future.isDone()){
-//                log.info("is done");
-//                break;
-//            }
-//            Thread.sleep(200);
-//        }
-        log.info("xxxx");
+        while(true){
+            if(future.isDone()){
+                log.info("is done");
+                break;
+            }
+            Thread.sleep(200);
+        }
         return "ok";
+    }
+
+    @PutMapping("/{id}")
+    public User update(@PathVariable Long id,@RequestBody User user){
+        User old = userService.getById(id);
+        Utils.record(old,user);
+        userService.saveOrUpdate(user);//更新操作
+        return user;
     }
 }

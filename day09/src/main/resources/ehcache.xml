@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         name="ZONG"
+         updateCheck="false"
+         maxBytesLocalHeap="16M">
+    <diskStore path="D:\Java\cache\ehcache"/>
+
+    <defaultCache
+            eternal="false"
+            overflowToDisk="false"
+            maxElementsInMemory="1000"
+            timeToIdleSeconds="3600"
+            timeToLiveSeconds="36000"
+    />
+    <cache name="user" eternal="false"
+           timeToIdleSeconds="120" timeToLiveSeconds="600" overflowToDisk="true" />
+
+</ehcache>
