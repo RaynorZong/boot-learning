@@ -4,6 +4,42 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="/static/admin/ueditor/third-party/jquery-1.10.2.min.js"></script>
+    <script>
+        $(function(){
+            var array = new Array() ;
+            array.push(1);
+            array.push(2);
+            for(var i=0;i<array.length;i++){
+                var params = {"id":array[i]};
+                $.ajax({
+                    url:"/test",
+                    type:'get',
+                    async:false,
+                    data:params,
+                    success:function (data) {
+                        console.log("ok");
+                        if(i==0){
+                            test(params)
+                        }
+                    }
+
+                })
+            }
+        })
+        function test(params) {
+            $.ajax({
+                url:"/test",
+                type:'get',
+                async:false,
+                data:params,
+                success:function (data) {
+                    console.log("ok");
+                }
+
+            })
+        }
+
+    </script>
 </head>
 <body>
     <a href="/add">add.html</a>

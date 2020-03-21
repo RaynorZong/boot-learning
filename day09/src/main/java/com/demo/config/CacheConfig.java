@@ -1,11 +1,17 @@
 package com.demo.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
+import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
@@ -13,7 +19,10 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.*;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -22,7 +31,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Configuration
-@AutoConfigureAfter(RedisAutoConfiguration.class)
+ @AutoConfigureAfter(RedisAutoConfiguration.class)
 public class CacheConfig extends CachingConfigurerSupport {
 
      @Bean(name = "redisTemplate")
@@ -42,8 +51,17 @@ public class CacheConfig extends CachingConfigurerSupport {
     private RedisSerializer<Object> valueSerializer() {
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(Object.class);
         ObjectMapper om = new ObjectMapper();
+        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        om.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        om.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        om.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
+        //不适用默认的dateTime进行序列化,使用JSR310的LocalDateTimeSerializer
+        om.configure(SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS, false);
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        //序列化LocalDateTIme和LocalDate的必要配置,由Jackson-data-JSR310实现
+        om.registerModule(new JavaTimeModule());
+        // om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL); 过期
+        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
         jackson2JsonRedisSerializer.setObjectMapper(om);
         return jackson2JsonRedisSerializer;
     }
@@ -74,5 +92,25 @@ public class CacheConfig extends CachingConfigurerSupport {
                 .initialCacheNames(cacheNames)
                  .withInitialCacheConfigurations(configMap)
                 .cacheDefaults(config).build();
+    }
+    @Override
+    public KeyGenerator keyGenerator() {
+        // 当没有指定缓存的 key时来根据类名、方法名和方法参数来生成key
+        return (target, method, params) -> {
+            StringBuilder sb = new StringBuilder();
+            sb.append(target.getClass().getName())
+                    .append(':')
+                    .append(method.getName());
+            if (params.length > 0) {
+                sb.append('[');
+                for (Object obj : params) {
+                    if (obj != null) {
+                        sb.append(obj.toString());
+                    }
+                }
+                sb.append(']');
+            }
+            return sb.toString();
+        };
     }
 }
