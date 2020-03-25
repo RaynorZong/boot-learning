@@ -10,11 +10,13 @@
         <module name="day02" />
         <module name="day01" />
         <module name="day10" />
+        <module name="day05" />
+        <module name="day11-publish" />
         <module name="day09" />
         <module name="day08" />
         <module name="day07" />
+        <module name="day11-listener" />
         <module name="day06" />
-        <module name="day05" />
         <module name="day04" />
         <module name="day03" />
       </profile>
@@ -30,6 +32,8 @@
       <module name="day08" target="1.8" />
       <module name="day09" target="1.8" />
       <module name="day10" target="1.8" />
+      <module name="day11-listener" target="1.8" />
+      <module name="day11-publish" target="1.8" />
       <module name="demo1" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -45,6 +49,8 @@
       <module name="day08" options="-parameters" />
       <module name="day09" options="-parameters" />
       <module name="day10" options="-parameters" />
+      <module name="day11-listener" options="-parameters" />
+      <module name="day11-publish" options="-parameters" />
       <module name="demo1" options="-parameters" />
     </option>
   </component>

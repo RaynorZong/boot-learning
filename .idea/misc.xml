@@ -13,10 +13,13 @@
         <option value="$PROJECT_DIR$/day08/pom.xml" />
         <option value="$PROJECT_DIR$/day09/pom.xml" />
         <option value="$PROJECT_DIR$/day10/pom.xml" />
+        <option value="$PROJECT_DIR$/day11/pom.xml" />
+        <option value="$PROJECT_DIR$/day11-listener/pom.xml" />
+        <option value="$PROJECT_DIR$/day11-publish/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
