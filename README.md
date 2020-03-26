@@ -31,9 +31,13 @@
 + Mybatis-plus
 + CodeGenerator
 + @Async
-+ 修改记录
++ 反射
 #### day09
 + Spring Cache
 + Ehcache
 + Redis
-
+#### day10
++ Redis
++ Spring Bean
+#### day11
++ RabbitMQ
