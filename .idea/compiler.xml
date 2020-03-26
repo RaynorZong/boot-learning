@@ -9,8 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="day02" />
         <module name="day01" />
-        <module name="demo" />
-        <module name="day03" />
+        <module name="day07" />
         <module name="day10" />
         <module name="day11-listener" />
         <module name="day09" />
@@ -19,7 +18,7 @@
         <module name="day06" />
         <module name="day05" />
         <module name="day04" />
-        <module name="day07" />
+        <module name="day03" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -35,7 +34,6 @@
       <module name="day10" target="1.8" />
       <module name="day11-listener" target="1.8" />
       <module name="day11-publish" target="1.8" />
-      <module name="demo" target="1.8" />
       <module name="demo1" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -53,7 +51,6 @@
       <module name="day10" options="-parameters" />
       <module name="day11-listener" options="-parameters" />
       <module name="day11-publish" options="-parameters" />
-      <module name="demo" options="-parameters" />
       <module name="demo1" options="-parameters" />
     </option>
   </component>
