@@ -14,6 +14,9 @@
     <file url="file://$PROJECT_DIR$/day11-listener/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/day11-listener/src/main/resources/application.yml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/day11-publish/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/day12/api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/day12/consumer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/day12/provider/src/main/java" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

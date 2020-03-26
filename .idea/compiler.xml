@@ -7,21 +7,26 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="day02" />
-        <module name="day01" />
-        <module name="day07" />
-        <module name="day10" />
-        <module name="day11-listener" />
         <module name="day09" />
         <module name="day08" />
-        <module name="day11-publish" />
+        <module name="day07" />
         <module name="day06" />
         <module name="day05" />
         <module name="day04" />
         <module name="day03" />
+        <module name="day02" />
+        <module name="day01" />
+        <module name="provider" />
+        <module name="day10" />
+        <module name="day11-publish" />
+        <module name="consumer" />
+        <module name="day11-listener" />
+        <module name="api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="api" target="1.8" />
+      <module name="consumer" target="1.8" />
       <module name="day01" target="1.8" />
       <module name="day02" target="1.8" />
       <module name="day03" target="1.8" />
@@ -34,11 +39,15 @@
       <module name="day10" target="1.8" />
       <module name="day11-listener" target="1.8" />
       <module name="day11-publish" target="1.8" />
+      <module name="day12" target="1.8" />
       <module name="demo1" target="1.8" />
+      <module name="provider" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api" options="-parameters" />
+      <module name="consumer" options="-parameters" />
       <module name="day01" options="-parameters" />
       <module name="day02" options="-parameters" />
       <module name="day03" options="-parameters" />
@@ -52,6 +61,7 @@
       <module name="day11-listener" options="-parameters" />
       <module name="day11-publish" options="-parameters" />
       <module name="demo1" options="-parameters" />
+      <module name="provider" options="-parameters" />
     </option>
   </component>
 </project>

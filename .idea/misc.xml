@@ -16,6 +16,9 @@
         <option value="$PROJECT_DIR$/day11/pom.xml" />
         <option value="$PROJECT_DIR$/day11-listener/pom.xml" />
         <option value="$PROJECT_DIR$/day11-publish/pom.xml" />
+        <option value="$PROJECT_DIR$/day12/pom.xml" />
+        <option value="$PROJECT_DIR$/day12/provider/pom.xml" />
+        <option value="$PROJECT_DIR$/day12/consumer/pom.xml" />
       </list>
     </option>
   </component>
