@@ -14,12 +14,12 @@ import java.util.UUID;
 public class AckPublisher implements RabbitTemplate.ConfirmCallback,RabbitTemplate.ReturnCallback {
 
     @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private RabbitTemplate jsonRabbitTemplate;
 
     @PostConstruct
     public void init() {
-        rabbitTemplate.setReturnCallback(this);
-        rabbitTemplate.setConfirmCallback(this);
+        jsonRabbitTemplate.setReturnCallback(this);
+        jsonRabbitTemplate.setConfirmCallback(this);
     }
     @Override
     //接收发送后确认信息
@@ -42,7 +42,7 @@ public class AckPublisher implements RabbitTemplate.ConfirmCallback,RabbitTempla
         String msg = "ack msg = " + ans;
         System.out.println("publish: " + msg);
         CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
-        rabbitTemplate.convertAndSend(MqConstants.exchange, MqConstants.routing, msg, correlationData);
+        jsonRabbitTemplate.convertAndSend(MqConstants.exchange, MqConstants.routing, msg, correlationData);
         return msg;
     }
 }

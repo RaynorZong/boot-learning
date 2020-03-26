@@ -9,5 +9,6 @@ spring:
     #接收mq返回的确认消息
     publisher-returns: true
 
+
 server:
   port: 8080
