@@ -19,7 +19,17 @@
         <option value="$PROJECT_DIR$/day12/pom.xml" />
         <option value="$PROJECT_DIR$/day12/provider/pom.xml" />
         <option value="$PROJECT_DIR$/day12/consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/day13/pom.xml" />
+        <option value="$PROJECT_DIR$/day13/server-eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/day13/client-eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/day13/server-security-eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/day14/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/day14/cloud-api/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="11" project-jdk-type="JavaSDK">

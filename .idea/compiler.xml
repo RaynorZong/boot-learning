@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="server-eureka" />
         <module name="day09" />
         <module name="day08" />
         <module name="day07" />
@@ -17,15 +18,20 @@
         <module name="day02" />
         <module name="day01" />
         <module name="provider" />
-        <module name="day10" />
+        <module name="server-security-eureka" />
         <module name="day11-publish" />
+        <module name="day10" />
         <module name="consumer" />
+        <module name="cloud-api" />
         <module name="day11-listener" />
+        <module name="client-eureka" />
         <module name="api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="api" target="1.8" />
+      <module name="client-eureka" target="1.8" />
+      <module name="cloud-api" target="1.8" />
       <module name="consumer" target="1.8" />
       <module name="day01" target="1.8" />
       <module name="day02" target="1.8" />
@@ -40,13 +46,18 @@
       <module name="day11-listener" target="1.8" />
       <module name="day11-publish" target="1.8" />
       <module name="day12" target="1.8" />
+      <module name="day13" target="1.8" />
+      <module name="day14" target="1.8" />
       <module name="demo1" target="1.8" />
       <module name="provider" target="1.8" />
+      <module name="server-eureka" target="1.8" />
+      <module name="server-security-eureka" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api" options="-parameters" />
+      <module name="client-eureka" options="-parameters" />
       <module name="consumer" options="-parameters" />
       <module name="day01" options="-parameters" />
       <module name="day02" options="-parameters" />
@@ -62,6 +73,8 @@
       <module name="day11-publish" options="-parameters" />
       <module name="demo1" options="-parameters" />
       <module name="provider" options="-parameters" />
+      <module name="server-eureka" options="-parameters" />
+      <module name="server-security-eureka" options="-parameters" />
     </option>
   </component>
 </project>
