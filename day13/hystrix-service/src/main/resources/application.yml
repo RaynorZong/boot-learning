@@ -1,0 +1,16 @@
+server:
+  port: 8012
+
+spring:
+  application:
+    name: hystrix-service
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://root:123456@localhost:8005/eureka
+
+service-url:
+  user-service: http://user-service/

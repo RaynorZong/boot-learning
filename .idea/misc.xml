@@ -24,6 +24,9 @@
         <option value="$PROJECT_DIR$/day13/client-eureka/pom.xml" />
         <option value="$PROJECT_DIR$/day13/server-security-eureka/pom.xml" />
         <option value="$PROJECT_DIR$/day14/pom.xml" />
+        <option value="$PROJECT_DIR$/day13/user-service-ribbon/pom.xml" />
+        <option value="$PROJECT_DIR$/day13/user-service/pom.xml" />
+        <option value="$PROJECT_DIR$/day13/hystrix-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

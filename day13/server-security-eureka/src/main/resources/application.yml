@@ -1,4 +1,3 @@
-
 server:
   port: 8005
 spring:
@@ -6,7 +5,7 @@ spring:
     name: eureka-security-server
   security:
     user:
-      # 配置spring security登录用户名和密码
+      # 閰嶇疆spring security鐧诲綍鐢ㄦ埛鍚嶅拰瀵嗙爜
       name: root
       password: 123456
 eureka:
