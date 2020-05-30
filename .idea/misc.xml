@@ -27,6 +27,8 @@
         <option value="$PROJECT_DIR$/day13/user-service-ribbon/pom.xml" />
         <option value="$PROJECT_DIR$/day13/user-service/pom.xml" />
         <option value="$PROJECT_DIR$/day13/hystrix-service/pom.xml" />
+        <option value="$PROJECT_DIR$/day13/hystrix-dashboard-service/pom.xml" />
+        <option value="$PROJECT_DIR$/day13/feign-client/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

@@ -21,6 +21,8 @@
       <module fileurl="file://$PROJECT_DIR$/day12/day12.iml" filepath="$PROJECT_DIR$/day12/day12.iml" />
       <module fileurl="file://$PROJECT_DIR$/day13/day13.iml" filepath="$PROJECT_DIR$/day13/day13.iml" />
       <module fileurl="file://$PROJECT_DIR$/day14/day14.iml" filepath="$PROJECT_DIR$/day14/day14.iml" />
+      <module fileurl="file://$PROJECT_DIR$/day13/feign-client/feign-client.iml" filepath="$PROJECT_DIR$/day13/feign-client/feign-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/day13/hystrix-dashboard-service/hystrix-dashboard-service.iml" filepath="$PROJECT_DIR$/day13/hystrix-dashboard-service/hystrix-dashboard-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/day13/hystrix-service/hystrix-service.iml" filepath="$PROJECT_DIR$/day13/hystrix-service/hystrix-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/day12/provider/provider.iml" filepath="$PROJECT_DIR$/day12/provider/provider.iml" />
       <module fileurl="file://$PROJECT_DIR$/day13/server-eureka/server-eureka.iml" filepath="$PROJECT_DIR$/day13/server-eureka/server-eureka.iml" />

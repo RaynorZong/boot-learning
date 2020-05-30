@@ -4,10 +4,7 @@ package com.cloud.demo.controller;
 import com.cloud.demo.entity.User;
 import com.cloud.demo.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -35,6 +32,14 @@ public class UserController {
 
     @GetMapping("/{id}")
     public User userOne(@PathVariable Long id ){
+
+        log.info("user-service-userOne"+id);
         return userService.getById(id);
+    }
+
+    @PutMapping("/")
+    public User userUpdate(@RequestBody  User user){
+        userService.updateById(user);
+        return user;
     }
 }

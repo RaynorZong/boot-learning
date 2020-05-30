@@ -8,8 +8,8 @@ spring:
     name: user-service
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.cloud.demo.entity
 mybatis:
+  type-aliases-package: com.cloud.demo.entity
 
 # 指定运行端口
 server:
@@ -24,4 +24,10 @@ eureka:
     service-url:
       # 配置注册中心地址
       defaultZone: http://root:123456@localhost:8005/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        #暴露hystrix监控端点
+        include: 'hystrix.stream'
 
