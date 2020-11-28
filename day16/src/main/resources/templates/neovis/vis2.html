@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vis.js</title>
+    <script type="text/javascript" src="../../static/common/jquery-3.4.1.min.js"></script>
+    <link href="../../static/vis/vis-network.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../../static/vis/vis.js"></script>
+    <!--<script type="text/javascript" src="js/vis-network.min.js"></script>-->
+    <style type="text/css">
+        #mynetwork {
+            width: 600px;
+            height: 600px;
+            border: 1px solid lightgray;
+        }
+        *{padding: 0;margin: 0;}
+        .menu{
+            /*这个样式不写，右键弹框会一直显示在画布的左下角*/
+            position: absolute;
+            background: rgba(3,3,3,0.6);
+            border-radius: 5px;
+            left: -99999px;
+            top: -999999px;
+        }
+        .menu ul{list-style: none}
+        .menu ul li{
+            padding: 5px 10px;
+            color: #ffff;
+            border-bottom: 1px solid #ffffff;
+            font-size: 14px;
+            cursor: pointer;
+            list-style: none;
+        }
+        .menu ul li:hover{
+            color: #659bc5;
+        }
+        .menu ul li:last-child{
+            border-bottom: none;
+            padding: 5px 10px 0 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="mynetwork"></div>
+<!--菜单操作-->
+<div id="menuOperation" class="menu" style="display: none;">
+    <ul>
+        <li><span class="glyphicon glyphicon-off" aria-hidden="true"></span> 下线</li>
+        <li><span class="glyphicon glyphicon-road" aria-hidden="true"></span> 通行</li>
+    </ul>
+</div>
+<!--节点悬停-->
+<div class="menu" id="divHoverNode" style="display: none;">
+    <!--<ul></ul>-->
+</div>
+<script type="text/javascript">
+    // 创建节点数据数组
+    var nodes = [];
+    nodes.push({
+        id: 'node1',
+        label: 'A'
+    });
+    nodes.push({
+        id: 'node2',
+        label: 'B'
+    });
+    nodes.push({
+        id: 'node3',
+        label: 'C'
+    });
+    nodes.push({
+        id: 'node4',
+        label: 'D'
+    });
+    var edges = [
+        { from: 'node1', to: 'node2',id:"r1" },
+        { from: 'node2', to: 'node3',id:"r2" },
+        { from: 'node3', to: 'node4',id:"r3" },
+    ];
+    var vis_container,vis_data,vis_network;
+    var vis_options = {
+        nodes:{
+            shape: 'dot'//设置图片
+        },
+        interaction:{
+            hover:true,
+            hoverConnectedEdges: true
+        }
+    };
+    $(function (){
+        init();
+    })
+    function init(){
+        vis_container = document.getElementById('mynetwork');
+        vis_data = {
+            nodes: nodes,
+            edges: edges
+        };
+        vis_network = new vis.Network(vis_container, vis_data, vis_options);
+
+        vis_network.on('hoverNode',function(properties){
+            var hoveNodeList = getNode(properties.node);
+            var $ul = "<ul>"
+                +"<li><span> "+hoveNodeList.label+" </span> </li>"
+                +"</ul>";
+            $("#divHoverNode").append($ul);
+
+            $('#divHoverNode').css({
+                'display': 'block',
+                'left': properties.event.offsetX + 15,
+                'top' : properties.event.offsetY + 15
+            });
+            $('#menuOperation').hide();
+        });
+        //todo  从节点移开---隐藏弹框
+        vis_network.on('blurNode',function(){
+            $("#divHoverNode").hide();
+            $("#divHoverNode").empty();//移除之后清空div
+        });
+        //todo  悬停在边上--显示弹框
+        vis_network.on('hoverEdge',function(properties){
+            debugger
+            var hoveEdgeList = getEdge(properties.edge);
+            console.log(hoveEdgeList)
+            var $ul = "<ul>"
+                +"<li>"+ hoveEdgeList[0].label+"->"+hoveEdgeList[1].label+"</li>"
+                +"</ul>";
+            $("#divHoverNode").append($ul);
+            $('#divHoverNode').css({
+                'display': 'block',
+                'left': properties.event.offsetX + 15,
+                'top' : properties.event.offsetY + 15
+            });
+            $('#menuOperation').hide();
+        });
+        //todo  从边上移开---隐藏弹框
+        vis_network.on('blurEdge',function(properties){
+            $("#divHoverNode").hide();
+            $("#divHoverNode").empty();//移除之后清空div
+        });
+        //todo  点击的判断是否选中节点时候显示隐藏
+        vis_network.on('click',function(properties){
+            var clickNodeList = getNode(properties.nodes[0]);
+            // console.log('clickNodeList',clickNodeList);
+            if (typeof(clickNodeList) == "undefined") {
+                $('#menuOperation').hide();
+            }else{
+                $('#menuOperation').css({
+                    'display': 'block',
+                    'left': properties.event.center.x + 15,
+                    'top' : properties.event.center.y + 15
+                });
+                $("#divHoverNode").hide();
+            }
+        });
+    }
+
+
+    function getNode(option) {
+        for (var i = 0;i < nodes.length;i++){
+            if (option == nodes[i].id){
+                // console.log('i',nodes[i]);
+                return nodes[i];
+            }
+        }
+    }
+
+    function getEdge(option){
+        var linkId = option;
+        var linkIdFirst = linkId.substring(0,1);//截取第一位
+        var linkIdLast = linkId.substring(linkId.length-1,linkId.length);//截取最后一位
+        var dataList = [];//存放线条两边的节点nodes数据
+        for (var j =0;j<nodes.length;j++){
+            if (linkIdFirst == nodes[j].id || linkIdLast == nodes[j].id){
+                dataList.push(nodes[j]);
+            }
+        }
+        return dataList;
+    }
+
+</script>
+</body>

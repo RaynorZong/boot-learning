@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>vis</title>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="../../static/common/jquery-3.4.1.min.js"></script>
+    <link href="../../static/vis/vis-network.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../../static/vis/vis.js"></script>
+    <style type="text/css">
+		.network {
+            width: 100%;
+            height: 600px;
+            border: 1px solid lightgray;
+            background-color: #fff;
+        }
+        .tip{
+            position: absolute;
+            right: 60px;
+            top: 18px;
+            z-index:99;
+            margin:0;
+            font-size: 13px;
+            color: #958A8A;
+        }
+    </style>
+</head>
+<body >
+    <div>
+        <div style="width: 20%;float: left;height: 200px;">
+            <div>
+                <input value="" id="htmc"/>
+                <button onclick="test();">执行</button>
+            </div>
+
+        </div>
+        <div style="width: 80%;float: left">
+            <p class="tip">提示：滚轮缩放</p>
+            <div id="network_id" class="network"></div><!-- 拓扑图容器-->
+
+        </div>
+    </div>
+
+    <script>
+    	//拓扑
+        var network;
+        // 创建节点对象
+        var nodes;
+        // 创建连线对象
+        var edges;
+        // 已扩展的节点
+        var nodeExtendArr = [];
+
+        $(function (){
+            init();
+            doPost();
+        });
+        function doPost(){
+            var nodesArr = [];
+            nodesArr.push({
+                id: 'node1',
+                label: 'A'
+            });
+            nodesArr.push({
+                id: 'node2',
+                label: 'B'
+            });
+            nodesArr.push({
+                id: 'node3',
+                label: 'C'
+            });
+            nodesArr.push({
+                id: 'node4',
+                label: 'D'
+            });
+            var edgesArr = [];
+            edgesArr.push({
+                id: 'edge1',
+                fromNodeId: 'node1',
+                toNodeId: 'node2',
+                label:'A->B'
+            });
+            edgesArr.push({
+                id: 'edge2',
+                fromNodeId: 'node2',
+                toNodeId: 'node3',
+                label:'B->C'
+            });
+            edgesArr.push({
+                id: 'edge3',
+                fromNodeId: 'node3',
+                toNodeId: 'node4',
+                label:'C->D'
+            });
+            edgesArr.push({
+                id: 'edge4',
+                fromNodeId: 'node4',
+                toNodeId: 'node1',
+                label:'D->A'
+            });
+            var param = {
+                nodes:nodesArr,
+                edges:edgesArr
+            }
+            show(param);
+        }
+        function test(){
+            $.get("/test/get2",'',function (data){
+                console.log(data)
+                var param = {
+                    nodes:data.nodeList,
+                    edges:data.edgeList
+                }
+                network.destroy();
+                init();
+                show(param);
+            });
+        }
+
+        function show(param) {
+            network.moveTo({scale: 0.8});//修改初始缩放
+
+            network.on("doubleClick", function(params) {//双击事件
+                if (params.nodes.length != 0) {
+                    //获取需要的参数，获取参数后可到后台获取扩展后的数据
+                    var id = network.body.data.nodes._data[params.nodes[0]].id;
+                    if(nodeExtendArr.indexOf(id) != -1){
+                    	alert("该节点已经扩展");
+                    }else{
+						//每个节点只能扩展一次,nodeExtendArr记录已扩展的节点
+                    	nodeExtendArr.push(id);
+                    	//模拟后台获取扩展后的节点
+						param = {
+							nodes:[{
+				        		id: 'node7',
+				                label: 'B'
+				        	},{
+				        		id: 'node8',
+				                label: 'D'
+				        	},{
+				        		id: 'node5',
+				                label: 'E'
+				        	},{
+				        		id: 'node6',
+				                label: 'F'
+				        	}],
+							edges:[{
+				        		id: 'edge7',
+				                fromNodeId: 'node1',
+				                toNodeId: 'node5',
+				                label:'A->E'
+				        	},{
+				        		id: 'edge8',
+				                fromNodeId: 'node1',
+				                toNodeId: 'node6',
+				                label:'A->F'
+				        	},{
+				        		id: 'edge5',
+				                fromNodeId: 'node1',
+				                toNodeId: 'node7',
+				                label:'A->B'
+				        	},{
+				        		id: 'edge6',
+				                fromNodeId: 'node8',
+				                toNodeId: 'node1',
+				                label:'D->A'
+				        	}]
+			            }
+                    	createNetwork(param);
+                    }
+                }
+            });
+            network.on("dragEnd", function(params){
+                if (params.nodes&&params.nodes.length > 0){
+                    network.clustering.updateClusteredNode(params.nodes[0], {physics : false});
+                }
+            });
+            //todo  悬停在节点上--显示弹框
+            network.on('hoverNode',function(properties){
+                debugger
+                console.log('悬停节点',properties);
+                var hoveNodeList = getNode(properties.node);
+                console.log('hoveNodeList',hoveNodeList);
+                var deviceType = hoveNodeList.type;
+                var $ul = "<ul>"
+                    +"<li><span> "+hoveNodeList.name+" </span></li>"
+                    +"</ul>";
+                $("#divHoverNode").append($ul);
+
+                $('#divHoverNode').css({
+                    'display': 'block',
+                    'left': properties.event.offsetX + 15,
+                    'top' : properties.event.offsetY + 15
+                });
+                $('#menuOperation').hide();
+            });
+            //todo  从节点移开---隐藏弹框
+            // network.on('blurNode',function(){
+            //     $("#divHoverNode").hide();
+            //     $("#divHoverNode").empty();//移除之后清空div
+            // });
+            //todo  悬停在边上--显示弹框
+            // network.on('hoverEdge',function(properties){
+            //     // console.log('悬停边',properties);
+            //     var hoveEdgeList = getEdge(properties.edge);
+            //     // console.log('hoveEdgeList',hoveEdgeList);
+            //     var $ul = "<ul>"
+            //         +"<li>名称："+ hoveEdgeList[0].name+"->"+hoveEdgeList[1].name+"</li>"
+            //         +"<li>端口号："+ hoveEdgeList[0].ip+"->"+hoveEdgeList[1].ip+"</li>"
+            //         +"</ul>";
+            //     $("#divHoverNode").append($ul);
+            //     $('#divHoverNode').css({
+            //         'display': 'block',
+            //         'left': properties.event.offsetX + 15,
+            //         'top' : properties.event.offsetY + 15
+            //     });
+            //     $('#menuOperation').hide();
+            // });
+            //todo  从边上移开---隐藏弹框
+            // network.on('blurEdge',function(properties){
+            //     $("#divHoverNode").hide();
+            //     $("#divHoverNode").empty();//移除之后清空div
+            // });
+            //todo  点击的判断是否选中节点时候显示隐藏
+
+            createNetwork(param);
+        };
+
+        function init(){
+            // 创建节点对象
+            nodes = new vis.DataSet([]);
+            // 创建连线对象
+            edges = new vis.DataSet([]);
+            // 创建一个网络拓扑图  不要使用jquery获取元素
+            var container = document.getElementById('network_id');
+            var data = {nodes: nodes, edges: edges};
+            //全局设置，每个节点和关系的属性会覆盖全局设置
+            var options = {
+                //设置节点形状
+                nodes:{
+                    shape: 'dot',//采用远点的形式
+                    size: 30,
+                    font:{
+                        face:'Microsoft YaHei'
+                    },
+                    title:'11'
+                },
+                // 设置关系连线
+                edges:{
+                    font:{
+                        face:'Microsoft YaHei'
+                    }
+                },
+                //设置节点的相互作用
+                interaction: {
+                    hoverConnectedEdges: true,
+                    hover:false,
+
+                },
+                //力导向图效果
+                physics: {
+                    enabled: true,
+                    barnesHut: {
+                        theta: 0.8,
+                        gravitationalConstant: -4000,
+                        centralGravity: 0.8,
+                        springLength: 120,
+                        springConstant: 0.09,
+                        damping: 0.09,
+                        avoidOverlap: 0,
+                        stabilization:true,
+                        timestep:20,
+                    }
+                }
+            };
+            network = new vis.Network(container, data, options);
+        }
+
+        //扩展节点 param nodes和relation集合
+        function createNetwork(param) {
+        	//可以试试注释掉去重的方法看看效果
+        	if(param.nodes && param.nodes.length>0){
+                //去除已存在的节点  以“label”属性为例删除重复节点，根据具体的属性自行修改
+                for(var i in network.body.data.nodes._data){
+                	var nodeTemp = network.body.data.nodes._data[i];
+                    param.nodes = deleteValueFromArr(param.nodes,"label",nodeTemp.label);
+                }
+        	}
+            //添加节点
+            for(var i=0;i<param.nodes.length;i++){
+            	var node = param.nodes[i];
+            	//除了固定的参数外，可以自己增加额外的参数
+                nodes.add({
+                    id: node.id,
+                    label: node.label
+                });
+            }
+            if(param.edges && param.edges.length>0){
+                //去除已存在的关系  以“label”属性为例删除重复节点，根据具体的属性自行修改
+                for(var i in network.body.data.edges._data){
+                	var edgeTemp = network.body.data.edges._data[i];
+                    param.edges = deleteValueFromArr(param.edges,"label",edgeTemp.label);
+                }
+        	}
+            //添加关系
+            for(var i=0;i<param.edges.length;i++){
+            	var edge = param.edges[i];
+                edges.add({
+                    id: edge.id,
+                    arrows:'to',
+                    from: edge.fromNodeId,
+                    to: edge.toNodeId,
+                    label:edge.label,
+                    font:{align:"middle"},
+                    length:150
+                });
+            }
+        }
+
+        //根据对象组数中的某个属性值进行过滤删除
+		//arrName数组名  field过滤的字段   keyValue字段值
+		function deleteValueFromArr(arrName,field,keyValue){
+		    if(arrName==null || arrName.length==0){
+		        return null;
+		    }
+		    for (var i =0;i< arrName.length;i++){
+		        if(arrName[i][field]==keyValue){
+		            arrName.splice(i,1);
+		        }
+		    }
+		    return arrName;
+		}
+		//根据对象数组中的某个属性值获取过滤后的数组
+		//arrName数组名  field过滤的字段   keyValue字段值
+		function getArrFromArr(arrName,field,keyValue){
+		    var arrReturn=[];
+		    if(arrName==null || arrName.length==0){
+		        return arrReturn;
+		    }
+		    var obj;
+		    for (var item=0; item< arrName.length;item++){
+		        obj=arrName[item];
+		        if(obj[field]==keyValue){
+		            arrReturn.push(obj);
+		        }
+		    }
+		    return arrReturn;
+		}
+
+        /**
+         * 节点鼠标悬停（点击）获取到的信息
+         * 因为hoverNode事件官方文档中给的信息悬停时只传了id值，想在鼠标悬停的时候显示该节点的信息拿不到值，所以遍历节点，相等的时候return改节点的信息
+         * @param option-----鼠标悬停时取得的id
+         * @returns {{flag, port, ip, name, ignore, id, type}|{flag, port, ip, name, ignore, model, id, type, mac, uptime}|{flag, port, ip, name, ignore, model, location, id, type, mac, account, uptime}|*}
+         */
+        function getNode(option) {
+            var data = nodes._data;
+            for (var i = 0;i < data.length;i++){
+                if (option == data[i].id){
+                    // console.log('i',nodes[i]);
+                    return data[i];
+                }
+            }
+        }
+        /**
+         * 线悬停（点击）时两端节点的信息（与节点类似）
+         * edges中加了id属性，代表线条指向，悬停时通过edges--id与nodes--id对比，将两端节点信息拼凑出来
+         * @param option----鼠标悬停在线上时取得的id
+         * @returns {Array}
+         */
+        function getEdge(option){
+            var linkId = option;
+            var linkIdFirst = linkId.substring(0,1);//截取第一位
+            var linkIdLast = linkId.substring(linkId.length-1,linkId.length);//截取最后一位
+            var dataList = [];//存放线条两边的节点nodes数据
+            for (var j =0;j<nodes.length;j++){
+                if (linkIdFirst == nodes[j].id || linkIdLast == nodes[j].id){
+                    dataList.push(nodes[j]);
+                }
+            }
+            return dataList;
+        }
+
+
+    </script>
+</body>
+</html>
