@@ -24,6 +24,8 @@
         <module name="user-service-ribbon" />
         <module name="hystrix-service" />
         <module name="server-eureka" />
+        <module name="day17" />
+        <module name="day16" />
         <module name="day15" />
         <module name="day03" />
         <module name="day02" />
@@ -57,6 +59,8 @@
       <module name="day13" target="1.8" />
       <module name="day14" target="1.8" />
       <module name="day15" target="1.8" />
+      <module name="day16" target="1.8" />
+      <module name="day17" target="1.8" />
       <module name="demo1" target="1.8" />
       <module name="feign-client" target="1.8" />
       <module name="hystrix-dashboard-service" target="1.8" />
@@ -88,6 +92,7 @@
       <module name="day11-listener" options="-parameters" />
       <module name="day11-publish" options="-parameters" />
       <module name="day15" options="-parameters" />
+      <module name="day16" options="-parameters" />
       <module name="demo1" options="-parameters" />
       <module name="feign-client" options="-parameters" />
       <module name="hystrix-dashboard-service" options="-parameters" />

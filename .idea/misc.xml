@@ -30,7 +30,7 @@
         <option value="$PROJECT_DIR$/day13/hystrix-dashboard-service/pom.xml" />
         <option value="$PROJECT_DIR$/day13/feign-client/pom.xml" />
         <option value="$PROJECT_DIR$/day15/pom.xml" />
-        <option value="$PROJECT_DIR$/../neo4j-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/neo4j-demo/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
