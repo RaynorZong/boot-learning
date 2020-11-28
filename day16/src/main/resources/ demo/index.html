@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="css/kg.css">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <style>
+        body {
+            background: linear-gradient(90deg, #ffffff, #d2e0f8)
+        }
+
+        .container {
+            width: 100%;
+            height: 35rem;
+
+            float: right;
+            display: flex;
+        }
+
+        .btn_container {
+            width: 100%;
+            height: 10rem;
+            text-align: center;
+        }
+
+        .btn_container:after {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        #toast-container {
+            top: 80%;
+            right: 45%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav style="background:#007497e0">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo" style="
+            margin-left: 1rem;
+            font-size: 1.2rem;
+        ">知识图谱可视化</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="http://www.molapages.xyz/molablog/page/72">文档</a></li>
+                <li><a href="https://github.com/molamolaxxx/KGView">Github</a></li>
+
+            </ul>
+        </div>
+    </nav>
+    <!-- <div id="container" class="container"></div> -->
+
+    <div class="row" style="
+    margin-top: 10px;
+    display: flex;
+">
+        <ul class="collapsible" data-collapsible="accordion" style="
+        margin-left: 4rem;width: 26rem
+    ">
+            <li class="active">
+                <div class="collapsible-header">节点数据</div>
+                <div class="collapsible-body" style="display: block;">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="t1" class="materialize-textarea"
+                                        style="border-bottom: 0px;width: 24rem;"></textarea>
+                                    <label for="textarea1">请输入节点数据</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="active">
+                <div class="collapsible-header">关系数据</div>
+                <div class="collapsible-body" style="display: block;">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="t2" class="materialize-textarea"
+                                        style="border-bottom: 0px;width: 24rem;"></textarea>
+                                    <label for="textarea1">请输入关系数据</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="active">
+                <div class="collapsible-header">节点配色</div>
+                <div class="collapsible-body" style="display: block;">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="t3" class="materialize-textarea"
+                                        style="border-bottom: 0px;width: 24rem;"></textarea>
+                                    <label for="textarea1">请输入节点配色</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="active">
+                <div class="collapsible-header">关系配色</div>
+                <div class="collapsible-body" style="display: block;">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="t4" class="materialize-textarea"
+                                        style="border-bottom: 0px;width: 24rem;"></textarea>
+                                    <label for="textarea1">请输入关系配色</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="active">
+                <div class="collapsible-header">回显内容</div>
+                <div class="collapsible-body" style="display: block;">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="t5" class="materialize-textarea"
+                                        style="border-bottom: 0px;width: 24rem;"></textarea>
+                                    <label for="textarea1">请输入回显内容</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="btn_container">
+                <a class="waves-effect waves-light btn-large" href="javascript:render();">渲染</a>
+            </li>
+        </ul>
+        <div class="col s12 m7" style="
+            float: right;
+            margin-right: 4rem;
+        ">
+            <div class="card">
+
+                <div id="container" class="card-image container">
+                    <span class="card-title" style="color: #868181;">Knowlegde Graph</span>
+                </div>
+
+
+                <div class="card-content" style="
+                background: aliceblue;
+            ">
+                    <p>知识图谱可视化，基于d3.js构建，支持数据导入与配色选择</p>
+                </div>
+                <div class="card-action">
+                    <a style="
+                    color: #077abd;
+                " href="http://www.molapages.xyz">mola的博客</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/d3.v3.min.js"></script>
+    <script src="js/kg.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script>
+        var aa = '{"0":{"name":"Htxx"},"1":{"name":"Htxx"},"2":{"name":"Htxx"},"3":{"name":"Htxx"},"4":{"name":"Htxx"},"5":{"name":"Htxx"},"6":{"name":"Htxx"},"7":{"name":"Htxx"},"8":{"name":"Htxx"},"9":{"name":"Htxx"},"700":{"name":"Jds"},"701":{"name":"Jds"},"702":{"name":"Jds"},"703":{"name":"Jds"},"704":{"name":"Jds"},"705":{"name":"Jds"},"706":{"name":"Jds"},"707":{"name":"Jds"},"708":{"name":"Jds"},"709":{"name":"Jds"},"710":{"name":"Jds"},"711":{"name":"Jds"},"712":{"name":"Jds"},"713":{"name":"Jds"},"714":{"name":"Jds"},"715":{"name":"Jds"},"716":{"name":"Jds"},"717":{"name":"Jds"},"718":{"name":"Jds"},"719":{"name":"Jds"},"720":{"name":"Jds"},"721":{"name":"Jds"},"600":{"name":"Jds"},"722":{"name":"Jds"},"601":{"name":"Jds"},"723":{"name":"Jds"},"602":{"name":"Jds"},"724":{"name":"Jds"},"603":{"name":"Jds"},"725":{"name":"Jds"},"604":{"name":"Jds"},"726":{"name":"Jds"},"605":{"name":"Jds"},"727":{"name":"Jds"},"606":{"name":"Jds"},"607":{"name":"Jds"},"728":{"name":"Jds"},"729":{"name":"Jds"},"608":{"name":"Jds"},"609":{"name":"Jds"},"730":{"name":"Jds"},"731":{"name":"Jds"},"610":{"name":"Jds"},"732":{"name":"Jds"},"611":{"name":"Jds"},"733":{"name":"Jds"},"612":{"name":"Jds"},"734":{"name":"Jds"},"613":{"name":"Jds"},"735":{"name":"Jds"},"614":{"name":"Jds"},"615":{"name":"Jds"},"736":{"name":"Jds"},"616":{"name":"Jds"},"737":{"name":"Jds"},"617":{"name":"Jds"},"738":{"name":"Jds"},"618":{"name":"Jds"},"739":{"name":"Jds"},"619":{"name":"Jds"},"740":{"name":"Jds"},"620":{"name":"Jds"},"741":{"name":"Jds"},"621":{"name":"Jds"},"742":{"name":"Jds"},"743":{"name":"Jds"},"622":{"name":"Jds"},"623":{"name":"Jds"},"744":{"name":"Jds"},"624":{"name":"Jds"},"745":{"name":"Jds"},"625":{"name":"Jds"},"626":{"name":"Jds"},"627":{"name":"Jds"},"628":{"name":"Jds"},"629":{"name":"Jds"},"630":{"name":"Jds"},"631":{"name":"Jds"},"632":{"name":"Jds"},"633":{"name":"Jds"},"634":{"name":"Jds"},"635":{"name":"Jds"},"636":{"name":"Jds"},"637":{"name":"Jds"},"638":{"name":"Jds"},"639":{"name":"Jds"},"640":{"name":"Jds"},"641":{"name":"Jds"},"642":{"name":"Jds"},"643":{"name":"Jds"},"644":{"name":"Jds"},"645":{"name":"Jds"},"646":{"name":"Jds"},"647":{"name":"Jds"},"648":{"name":"Jds"},"649":{"name":"Jds"},"650":{"name":"Jds"},"651":{"name":"Jds"},"652":{"name":"Jds"},"653":{"name":"Jds"},"654":{"name":"Jds"},"655":{"name":"Jds"},"656":{"name":"Jds"},"657":{"name":"Jds"},"658":{"name":"Jds"},"659":{"name":"Jds"},"660":{"name":"Jds"},"661":{"name":"Jds"},"662":{"name":"Jds"},"663":{"name":"Jds"},"664":{"name":"Jds"},"665":{"name":"Jds"},"666":{"name":"Jds"},"667":{"name":"Jds"},"546":{"name":"Jds"},"668":{"name":"Jds"},"547":{"name":"Jds"},"669":{"name":"Jds"},"548":{"name":"Jds"},"549":{"name":"Jds"},"670":{"name":"Jds"},"671":{"name":"Jds"},"550":{"name":"Jds"},"551":{"name":"Jds"},"672":{"name":"Jds"},"552":{"name":"Jds"},"673":{"name":"Jds"},"674":{"name":"Jds"},"553":{"name":"Jds"},"554":{"name":"Jds"},"675":{"name":"Jds"},"555":{"name":"Jds"},"676":{"name":"Jds"},"677":{"name":"Jds"},"556":{"name":"Jds"},"678":{"name":"Jds"},"557":{"name":"Jds"},"558":{"name":"Jds"},"679":{"name":"Jds"},"559":{"name":"Jds"},"680":{"name":"Jds"},"681":{"name":"Jds"},"560":{"name":"Jds"},"682":{"name":"Jds"},"561":{"name":"Jds"},"683":{"name":"Jds"},"562":{"name":"Jds"},"684":{"name":"Jds"},"563":{"name":"Jds"},"685":{"name":"Jds"},"564":{"name":"Jds"},"686":{"name":"Jds"},"565":{"name":"Jds"},"687":{"name":"Jds"},"566":{"name":"Jds"},"567":{"name":"Jds"},"688":{"name":"Jds"},"689":{"name":"Jds"},"568":{"name":"Jds"},"569":{"name":"Jds"},"690":{"name":"Jds"},"691":{"name":"Jds"},"570":{"name":"Jds"},"692":{"name":"Jds"},"571":{"name":"Jds"},"693":{"name":"Jds"},"572":{"name":"Jds"},"694":{"name":"Jds"},"573":{"name":"Jds"},"695":{"name":"Jds"},"574":{"name":"Jds"},"575":{"name":"Jds"},"696":{"name":"Jds"},"576":{"name":"Jds"},"697":{"name":"Jds"},"577":{"name":"Jds"},"698":{"name":"Jds"},"578":{"name":"Jds"},"699":{"name":"Jds"},"579":{"name":"Jds"},"580":{"name":"Jds"},"581":{"name":"Jds"},"582":{"name":"Jds"},"583":{"name":"Jds"},"584":{"name":"Jds"},"100":{"name":"Htxx"},"585":{"name":"Jds"},"101":{"name":"Htxx"},"586":{"name":"Jds"},"102":{"name":"Htxx"},"587":{"name":"Jds"},"103":{"name":"Htxx"},"588":{"name":"Jds"},"104":{"name":"Htxx"},"105":{"name":"Htxx"},"589":{"name":"Jds"},"106":{"name":"Htxx"},"107":{"name":"Htxx"},"108":{"name":"Htxx"},"109":{"name":"Htxx"},"590":{"name":"Jds"},"591":{"name":"Jds"},"592":{"name":"Jds"},"593":{"name":"Jds"},"594":{"name":"Jds"},"110":{"name":"Htxx"},"595":{"name":"Jds"},"111":{"name":"Htxx"},"112":{"name":"Htxx"},"596":{"name":"Jds"},"113":{"name":"Htxx"},"597":{"name":"Jds"},"114":{"name":"Htxx"},"598":{"name":"Jds"},"115":{"name":"Htxx"},"599":{"name":"Jds"},"116":{"name":"Htxx"},"117":{"name":"Htxx"},"118":{"name":"Htxx"},"119":{"name":"Htxx"},"10":{"name":"Htxx"},"11":{"name":"Htxx"},"12":{"name":"Htxx"},"13":{"name":"Htxx"},"14":{"name":"Htxx"},"15":{"name":"Htxx"},"16":{"name":"Htxx"},"17":{"name":"Htxx"},"18":{"name":"Htxx"},"19":{"name":"Htxx"},"120":{"name":"Htxx"},"121":{"name":"Htxx"},"122":{"name":"Htxx"},"123":{"name":"Htxx"},"124":{"name":"Htxx"},"125":{"name":"Htxx"},"126":{"name":"Htxx"},"127":{"name":"Htxx"},"128":{"name":"Htxx"},"129":{"name":"Htxx"},"20":{"name":"Htxx"},"21":{"name":"Htxx"},"22":{"name":"Htxx"},"23":{"name":"Htxx"},"24":{"name":"Htxx"},"25":{"name":"Htxx"},"26":{"name":"Htxx"},"27":{"name":"Htxx"},"28":{"name":"Htxx"},"29":{"name":"Htxx"},"130":{"name":"Htxx"},"131":{"name":"Htxx"},"132":{"name":"Htxx"},"133":{"name":"Htxx"},"134":{"name":"Htxx"},"135":{"name":"Htxx"},"136":{"name":"Htxx"},"137":{"name":"Htxx"},"138":{"name":"Htxx"},"139":{"name":"Htxx"},"30":{"name":"Htxx"},"31":{"name":"Htxx"},"32":{"name":"Htxx"},"33":{"name":"Htxx"},"34":{"name":"Htxx"},"35":{"name":"Htxx"},"36":{"name":"Htxx"},"37":{"name":"Htxx"},"38":{"name":"Htxx"},"39":{"name":"Htxx"},"140":{"name":"Htxx"},"141":{"name":"Htxx"},"142":{"name":"Htxx"},"143":{"name":"Htxx"},"144":{"name":"Htxx"},"145":{"name":"Htxx"},"146":{"name":"Htxx"},"147":{"name":"Htxx"},"148":{"name":"Htxx"},"149":{"name":"Htxx"},"40":{"name":"Htxx"},"41":{"name":"Htxx"},"42":{"name":"Htxx"},"43":{"name":"Htxx"},"44":{"name":"Htxx"},"45":{"name":"Htxx"},"46":{"name":"Htxx"},"47":{"name":"Htxx"},"48":{"name":"Htxx"},"49":{"name":"Htxx"},"150":{"name":"Htxx"},"151":{"name":"Htxx"},"152":{"name":"Htxx"},"153":{"name":"Htxx"},"154":{"name":"Htxx"},"155":{"name":"Htxx"},"156":{"name":"Htxx"},"157":{"name":"Htxx"},"158":{"name":"Htxx"},"159":{"name":"Htxx"},"50":{"name":"Htxx"},"51":{"name":"Htxx"},"52":{"name":"Htxx"},"53":{"name":"Htxx"},"54":{"name":"Htxx"},"55":{"name":"Htxx"},"56":{"name":"Htxx"},"57":{"name":"Htxx"},"58":{"name":"Htxx"},"59":{"name":"Htxx"},"160":{"name":"Htxx"},"161":{"name":"Htxx"},"162":{"name":"Htxx"},"163":{"name":"Htxx"},"164":{"name":"Htxx"},"165":{"name":"Htxx"},"166":{"name":"Htxx"},"167":{"name":"Htxx"},"168":{"name":"Htxx"},"169":{"name":"Htxx"},"60":{"name":"Htxx"},"61":{"name":"Htxx"},"62":{"name":"Htxx"},"63":{"name":"Htxx"},"64":{"name":"Htxx"},"65":{"name":"Htxx"},"66":{"name":"Htxx"},"67":{"name":"Htxx"},"68":{"name":"Htxx"},"69":{"name":"Htxx"},"170":{"name":"Htxx"},"171":{"name":"Htxx"},"172":{"name":"Htxx"},"173":{"name":"Htxx"},"174":{"name":"Htxx"},"175":{"name":"Htxx"},"176":{"name":"Htxx"},"177":{"name":"Htxx"},"178":{"name":"Htxx"},"179":{"name":"Htxx"},"70":{"name":"Htxx"},"71":{"name":"Htxx"},"72":{"name":"Htxx"},"73":{"name":"Htxx"},"74":{"name":"Htxx"},"75":{"name":"Htxx"},"76":{"name":"Htxx"},"77":{"name":"Htxx"},"78":{"name":"Htxx"},"79":{"name":"Htxx"},"180":{"name":"Htxx"},"181":{"name":"Htxx"},"182":{"name":"Htxx"},"183":{"name":"Htxx"},"184":{"name":"Htxx"},"185":{"name":"Htxx"},"186":{"name":"Htxx"},"187":{"name":"Htxx"},"188":{"name":"Htxx"},"189":{"name":"Htxx"},"80":{"name":"Htxx"},"81":{"name":"Htxx"},"82":{"name":"Htxx"},"83":{"name":"Htxx"},"84":{"name":"Htxx"},"85":{"name":"Htxx"},"86":{"name":"Htxx"},"87":{"name":"Htxx"},"88":{"name":"Htxx"},"89":{"name":"Htxx"},"190":{"name":"Htxx"},"191":{"name":"Htxx"},"192":{"name":"Htxx"},"193":{"name":"Htxx"},"194":{"name":"Htxx"},"195":{"name":"Htxx"},"196":{"name":"Htxx"},"197":{"name":"Htxx"},"198":{"name":"Htxx"},"199":{"name":"Htxx"},"90":{"name":"Htxx"},"91":{"name":"Htxx"},"92":{"name":"Htxx"},"93":{"name":"Htxx"},"94":{"name":"Htxx"},"95":{"name":"Htxx"},"96":{"name":"Htxx"},"97":{"name":"Htxx"},"98":{"name":"Htxx"},"99":{"name":"Htxx"}}';
+        var bb ='[{"source":"162","type":"162","rela":"监管","target":"708"},{"source":"161","type":"161","rela":"监管","target":"707"},{"source":"172","type":"172","rela":"监管","target":"718"},{"source":"163","type":"163","rela":"监管","target":"709"},{"source":"173","type":"173","rela":"监管","target":"719"},{"source":"168","type":"168","rela":"监管","target":"714"},{"source":"170","type":"170","rela":"监管","target":"716"},{"source":"169","type":"169","rela":"监管","target":"715"},{"source":"180","type":"180","rela":"监管","target":"726"},{"source":"171","type":"171","rela":"监管","target":"717"},{"source":"166","type":"166","rela":"监管","target":"712"},{"source":"181","type":"181","rela":"监管","target":"727"},{"source":"176","type":"176","rela":"监管","target":"722"},{"source":"167","type":"167","rela":"监管","target":"713"},{"source":"178","type":"178","rela":"监管","target":"724"},{"source":"177","type":"177","rela":"监管","target":"723"},{"source":"188","type":"188","rela":"监管","target":"734"},{"source":"179","type":"179","rela":"监管","target":"725"},{"source":"174","type":"174","rela":"监管","target":"720"},{"source":"189","type":"189","rela":"监管","target":"735"},{"source":"184","type":"184","rela":"监管","target":"730"},{"source":"175","type":"175","rela":"监管","target":"721"},{"source":"186","type":"186","rela":"监管","target":"732"},{"source":"185","type":"185","rela":"监管","target":"731"},{"source":"187","type":"187","rela":"监管","target":"733"},{"source":"182","type":"182","rela":"监管","target":"728"},{"source":"183","type":"183","rela":"监管","target":"729"},{"source":"2","type":"2","rela":"监管","target":"548"},{"source":"1","type":"1","rela":"监管","target":"547"},{"source":"12","type":"12","rela":"监管","target":"558"},{"source":"3","type":"3","rela":"监管","target":"549"},{"source":"190","type":"190","rela":"监管","target":"736"},{"source":"13","type":"13","rela":"监管","target":"559"},{"source":"8","type":"8","rela":"监管","target":"554"},{"source":"191","type":"191","rela":"监管","target":"737"},{"source":"10","type":"10","rela":"监管","target":"556"},{"source":"9","type":"9","rela":"监管","target":"555"},{"source":"20","type":"20","rela":"监管","target":"566"},{"source":"11","type":"11","rela":"监管","target":"557"},{"source":"6","type":"6","rela":"监管","target":"552"},{"source":"21","type":"21","rela":"监管","target":"567"},{"source":"16","type":"16","rela":"监管","target":"562"},{"source":"7","type":"7","rela":"监管","target":"553"},{"source":"18","type":"18","rela":"监管","target":"564"},{"source":"17","type":"17","rela":"监管","target":"563"},{"source":"28","type":"28","rela":"监管","target":"574"},{"source":"19","type":"19","rela":"监管","target":"565"},{"source":"14","type":"14","rela":"监管","target":"560"},{"source":"29","type":"29","rela":"监管","target":"575"},{"source":"24","type":"24","rela":"监管","target":"570"},{"source":"15","type":"15","rela":"监管","target":"561"},{"source":"26","type":"26","rela":"监管","target":"572"},{"source":"25","type":"25","rela":"监管","target":"571"},{"source":"164","type":"164","rela":"监管","target":"710"},{"source":"27","type":"27","rela":"监管","target":"573"},{"source":"22","type":"22","rela":"监管","target":"568"},{"source":"165","type":"165","rela":"监管","target":"711"},{"source":"160","type":"160","rela":"监管","target":"706"},{"source":"23","type":"23","rela":"监管","target":"569"},{"source":"30","type":"30","rela":"监管","target":"576"},{"source":"31","type":"31","rela":"监管","target":"577"},{"source":"4","type":"4","rela":"监管","target":"550"},{"source":"5","type":"5","rela":"监管","target":"551"},{"source":"0","type":"0","rela":"监管","target":"546"},{"source":"194","type":"194","rela":"监管","target":"740"},{"source":"193","type":"193","rela":"监管","target":"739"},{"source":"195","type":"195","rela":"监管","target":"741"},{"source":"198","type":"198","rela":"监管","target":"744"},{"source":"199","type":"199","rela":"监管","target":"745"},{"source":"34","type":"34","rela":"监管","target":"580"},{"source":"33","type":"33","rela":"监管","target":"579"},{"source":"44","type":"44","rela":"监管","target":"590"},{"source":"35","type":"35","rela":"监管","target":"581"},{"source":"45","type":"45","rela":"监管","target":"591"},{"source":"40","type":"40","rela":"监管","target":"586"},{"source":"42","type":"42","rela":"监管","target":"588"},{"source":"41","type":"41","rela":"监管","target":"587"},{"source":"52","type":"52","rela":"监管","target":"598"},{"source":"43","type":"43","rela":"监管","target":"589"},{"source":"38","type":"38","rela":"监管","target":"584"},{"source":"53","type":"53","rela":"监管","target":"599"},{"source":"48","type":"48","rela":"监管","target":"594"},{"source":"39","type":"39","rela":"监管","target":"585"},{"source":"50","type":"50","rela":"监管","target":"596"},{"source":"49","type":"49","rela":"监管","target":"595"},{"source":"60","type":"60","rela":"监管","target":"606"},{"source":"51","type":"51","rela":"监管","target":"597"},{"source":"46","type":"46","rela":"监管","target":"592"},{"source":"61","type":"61","rela":"监管","target":"607"},{"source":"56","type":"56","rela":"监管","target":"602"},{"source":"47","type":"47","rela":"监管","target":"593"},{"source":"58","type":"58","rela":"监管","target":"604"},{"source":"57","type":"57","rela":"监管","target":"603"},{"source":"196","type":"196","rela":"监管","target":"742"},{"source":"59","type":"59","rela":"监管","target":"605"},{"source":"54","type":"54","rela":"监管","target":"600"},{"source":"197","type":"197","rela":"监管","target":"743"},{"source":"192","type":"192","rela":"监管","target":"738"},{"source":"55","type":"55","rela":"监管","target":"601"},{"source":"62","type":"62","rela":"监管","target":"608"},{"source":"63","type":"63","rela":"监管","target":"609"},{"source":"36","type":"36","rela":"监管","target":"582"},{"source":"37","type":"37","rela":"监管","target":"583"},{"source":"32","type":"32","rela":"监管","target":"578"},{"source":"66","type":"66","rela":"监管","target":"612"},{"source":"65","type":"65","rela":"监管","target":"611"},{"source":"76","type":"76","rela":"监管","target":"622"},{"source":"67","type":"67","rela":"监管","target":"613"},{"source":"77","type":"77","rela":"监管","target":"623"},{"source":"72","type":"72","rela":"监管","target":"618"},{"source":"74","type":"74","rela":"监管","target":"620"},{"source":"73","type":"73","rela":"监管","target":"619"},{"source":"84","type":"84","rela":"监管","target":"630"},{"source":"75","type":"75","rela":"监管","target":"621"},{"source":"70","type":"70","rela":"监管","target":"616"},{"source":"85","type":"85","rela":"监管","target":"631"},{"source":"80","type":"80","rela":"监管","target":"626"},{"source":"71","type":"71","rela":"监管","target":"617"},{"source":"82","type":"82","rela":"监管","target":"628"},{"source":"81","type":"81","rela":"监管","target":"627"},{"source":"92","type":"92","rela":"监管","target":"638"},{"source":"83","type":"83","rela":"监管","target":"629"},{"source":"78","type":"78","rela":"监管","target":"624"},{"source":"93","type":"93","rela":"监管","target":"639"},{"source":"88","type":"88","rela":"监管","target":"634"},{"source":"79","type":"79","rela":"监管","target":"625"},{"source":"90","type":"90","rela":"监管","target":"636"},{"source":"89","type":"89","rela":"监管","target":"635"},{"source":"91","type":"91","rela":"监管","target":"637"},{"source":"86","type":"86","rela":"监管","target":"632"},{"source":"87","type":"87","rela":"监管","target":"633"},{"source":"94","type":"94","rela":"监管","target":"640"},{"source":"95","type":"95","rela":"监管","target":"641"},{"source":"68","type":"68","rela":"监管","target":"614"},{"source":"69","type":"69","rela":"监管","target":"615"},{"source":"64","type":"64","rela":"监管","target":"610"},{"source":"98","type":"98","rela":"监管","target":"644"},{"source":"97","type":"97","rela":"监管","target":"643"},{"source":"108","type":"108","rela":"监管","target":"654"},{"source":"99","type":"99","rela":"监管","target":"645"},{"source":"109","type":"109","rela":"监管","target":"655"},{"source":"104","type":"104","rela":"监管","target":"650"},{"source":"106","type":"106","rela":"监管","target":"652"},{"source":"105","type":"105","rela":"监管","target":"651"},{"source":"116","type":"116","rela":"监管","target":"662"},{"source":"107","type":"107","rela":"监管","target":"653"},{"source":"102","type":"102","rela":"监管","target":"648"},{"source":"117","type":"117","rela":"监管","target":"663"},{"source":"112","type":"112","rela":"监管","target":"658"},{"source":"103","type":"103","rela":"监管","target":"649"},{"source":"114","type":"114","rela":"监管","target":"660"},{"source":"113","type":"113","rela":"监管","target":"659"},{"source":"124","type":"124","rela":"监管","target":"670"},{"source":"115","type":"115","rela":"监管","target":"661"},{"source":"110","type":"110","rela":"监管","target":"656"},{"source":"125","type":"125","rela":"监管","target":"671"},{"source":"120","type":"120","rela":"监管","target":"666"},{"source":"111","type":"111","rela":"监管","target":"657"},{"source":"122","type":"122","rela":"监管","target":"668"},{"source":"121","type":"121","rela":"监管","target":"667"},{"source":"123","type":"123","rela":"监管","target":"669"},{"source":"118","type":"118","rela":"监管","target":"664"},{"source":"119","type":"119","rela":"监管","target":"665"},{"source":"126","type":"126","rela":"监管","target":"672"},{"source":"127","type":"127","rela":"监管","target":"673"},{"source":"100","type":"100","rela":"监管","target":"646"},{"source":"101","type":"101","rela":"监管","target":"647"},{"source":"96","type":"96","rela":"监管","target":"642"},{"source":"130","type":"130","rela":"监管","target":"676"},{"source":"129","type":"129","rela":"监管","target":"675"},{"source":"140","type":"140","rela":"监管","target":"686"},{"source":"131","type":"131","rela":"监管","target":"677"},{"source":"141","type":"141","rela":"监管","target":"687"},{"source":"136","type":"136","rela":"监管","target":"682"},{"source":"138","type":"138","rela":"监管","target":"684"},{"source":"137","type":"137","rela":"监管","target":"683"},{"source":"148","type":"148","rela":"监管","target":"694"},{"source":"139","type":"139","rela":"监管","target":"685"},{"source":"134","type":"134","rela":"监管","target":"680"},{"source":"149","type":"149","rela":"监管","target":"695"},{"source":"144","type":"144","rela":"监管","target":"690"},{"source":"135","type":"135","rela":"监管","target":"681"},{"source":"146","type":"146","rela":"监管","target":"692"},{"source":"145","type":"145","rela":"监管","target":"691"},{"source":"156","type":"156","rela":"监管","target":"702"},{"source":"147","type":"147","rela":"监管","target":"693"},{"source":"142","type":"142","rela":"监管","target":"688"},{"source":"157","type":"157","rela":"监管","target":"703"},{"source":"152","type":"152","rela":"监管","target":"698"},{"source":"143","type":"143","rela":"监管","target":"689"},{"source":"154","type":"154","rela":"监管","target":"700"},{"source":"153","type":"153","rela":"监管","target":"699"},{"source":"155","type":"155","rela":"监管","target":"701"},{"source":"150","type":"150","rela":"监管","target":"696"},{"source":"151","type":"151","rela":"监管","target":"697"},{"source":"158","type":"158","rela":"监管","target":"704"},{"source":"159","type":"159","rela":"监管","target":"705"},{"source":"132","type":"132","rela":"监管","target":"678"},{"source":"133","type":"133","rela":"监管","target":"679"},{"source":"128","type":"128","rela":"监管","target":"674"}]'
+        var t1_text = '{' +
+            '"1": {"name": "数据结构","type": "学科"},\n' +
+            '"2": { "name": "二叉树", "type": "知识点"},\n' +
+            '"3": {"name": "链表","type": "知识点"},\n' +
+            '"4": {"name": "平衡二叉树","type": "知识点"},\n' +
+            '"5": {"name": "二叉树的结构讲解","url": "www.mooc.com/15.html",\n' +
+            '"type": "视频资源"},\n' +
+            '"6": {"name": "链表的反转",\n' +
+            '"url": "www.mooc.com/1.ppt",\n' +
+            '"type": "ppt资源"\n' +
+            '},\n' +
+            '"7": {"name": "闲节点","type": "闲"},\n' +
+            '"8": {"name": "闲节点2","type": "闲"},\n' +
+            '"9": {"name": "闲节点3","type": "闲"},\n' +
+            '"10": {"name": "芳芳老师","type": "老师"},\n' +
+            '"11": {"name": "月老师","type": "老师"}\n' +
+            "}"
+        document.getElementById("t1").value = aa;
+        var t2_text = "[\n" +
+            '{ "source": 1, "target": 2, "rela": "包含", "type": "包含关系" },\n' +
+            '{ "source": 1, "target": 3, "rela": "包含", "type": "包含关系" },\n' +
+            '{ "source": 1, "target": 4, "rela": "包含", "type": "包含关系" },\n' +
+            '{ "source": 2, "target": 5, "rela": "视频课程", "type": "资源" },\n' +
+            '{ "source": 3, "target": 6, "rela": "ppt教程", "type": "资源" },\n' +
+            '{ "source": 3, "target": 7, "rela": "没关系" },\n' +
+            '{ "source": 8, "target": 9, "rela": "没关系" },\n' +
+            '{ "source": 10, "target": 5, "rela": "授课", "type": "行为" },\n' +
+            '{ "source": 11, "target": 6, "rela": "授课", "type": "行为" }\n' +
+            "]"
+        document.getElementById("t2").value = bb;
+        console.log(JSON.parse(aa));
+
+        contentHook = function(item){
+            return "<div>"+item.name+"</div>"
+        }
+        function render() {
+            try {
+                $("svg").remove()
+                var data = {}
+                data.nodes = JSON.parse(document.getElementById("t1").value);
+                data.links = JSON.parse(document.getElementById("t2").value);
+                var config = {
+                    //鼠标mouseover后的弹窗
+                    content: document.getElementById("t5").value,
+                    contentHook: null,
+                    //节点配色方案（可为空)
+                    nodeColor: document.getElementById("t3").value ? JSON.parse(document.getElementById("t3").value) : null,
+                    //连接线配色方案（可为空）
+                    linkColor: document.getElementById("t4").value ? JSON.parse(document.getElementById("t4").value) : null,
+                    width: document.getElementById("container").clientWidth,
+                    height: document.getElementById("container").clientHeight
+                }
+                initKG(data, config, "#container")
+            } catch (err) {
+                Materialize.toast('渲染存在异常', 2000)
+                console.info(err)
+            }
+        }
+        render();
+
+    </script>
+
+</body>
