@@ -3,8 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <title>xxx</title>
+
+    <script src="../templates/js/d3.v3.min.js"></script>
+    <script src="../templates/js/jquery-3.4.1.min.js"></script>
+    <script src="../templates/js/my_d3.js"></script>
+    <script type="text/javascript">
+        var t1_text =  '' +
+            '{' +
+            '"1":{"name":"数据结构","type":"学科"},' +
+            '"2":{"name":"二叉树","type":"知识点"},' +
+            '"3":{"name":"链表","type":"知识点"},' +
+            '"4":{"name":"平衡二叉树","type":"知识点"},' +
+            '"5":{"name":"二叉树的结构讲解","url":"www.mooc.com/15.html","type":"视频资源"},' +
+            '"6":{"name":"链表的反转","url":"www.mooc.com/1.ppt","type":"ppt资源"},' +
+            '"7":{"name":"闲节点","type":"闲"},' +
+            '"8":{"name":"闲节点2","type":"闲"},' +
+            '"9":{"name":"闲节点3","type":"闲"},' +
+            '"10":{"name":"芳芳老师","type":"老师"},' +
+            '"11":{"name":"月老师","type":"老师"}}'
+
+        var t2_text = "[\n" +
+            '{ "source": 1, "target": 2, "rela": "包含", "type": "包含关系" },\n' +
+            '{ "source": 1, "target": 3, "rela": "包含", "type": "包含关系" },\n' +
+            '{ "source": 1, "target": 4, "rela": "包含", "type": "包含关系" },\n' +
+            '{ "source": 2, "target": 5, "rela": "视频课程", "type": "资源" },\n' +
+            '{ "source": 3, "target": 6, "rela": "ppt教程", "type": "资源" },\n' +
+            '{ "source": 3, "target": 7, "rela": "没关系" },\n' +
+            '{ "source": 8, "target": 9, "rela": "没关系" },\n' +
+            '{ "source": 10, "target": 5, "rela": "授课", "type": "行为" },\n' +
+            '{ "source": 11, "target": 6, "rela": "授课", "type": "行为" }\n' +
+            "]"
+
+        function render() {
+            $("svg").remove()
+            var data = {}
+            data.nodes = JSON.parse(t1_text);
+            data.links = JSON.parse(t2_text);
+            var config = {
+                content: null,
+                contentHook: null,
+                nodeColor: null,
+                linkColor: null,
+                width: 800,
+                height: 1000
+            }
+            initKG(data, config, "#container")
+        }
+
+        $(function () {
+            render();
+        })
+    </script>
 </head>
 <body>
-
+    <div>
+        <div class="card" style="border: cadetblue 1px solid">
+            <div id="container" class="card-image container">
+                <span class="card-title" style="color: #868181;">知识图谱</span>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

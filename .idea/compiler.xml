@@ -7,31 +7,33 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="user-service-ribbon" />
-        <module name="server-eureka" />
+        <module name="cloud-api" />
         <module name="day09" />
         <module name="day08" />
         <module name="user-service" />
+        <module name="day07" />
         <module name="day06" />
         <module name="day05" />
         <module name="day04" />
+        <module name="feign-client" />
+        <module name="user-api" />
+        <module name="day10" />
+        <module name="provider" />
+        <module name="api" />
+        <module name="consumer" />
+        <module name="user-service-ribbon" />
+        <module name="hystrix-service" />
+        <module name="server-eureka" />
+        <module name="day15" />
         <module name="day03" />
         <module name="day02" />
         <module name="day01" />
+        <module name="day11-publish" />
+        <module name="server-security-eureka" />
         <module name="client-eureka" />
         <module name="hystrix-dashboard-service" />
-        <module name="feign-client" />
-        <module name="provider" />
-        <module name="server-security-eureka" />
-        <module name="day07" />
-        <module name="day11-publish" />
-        <module name="day10" />
-        <module name="hystrix-service" />
-        <module name="consumer" />
-        <module name="cloud-api" />
         <module name="day11-listener" />
-        <module name="user-api" />
-        <module name="api" />
+        <module name="neo4j-demo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -54,10 +56,12 @@
       <module name="day12" target="1.8" />
       <module name="day13" target="1.8" />
       <module name="day14" target="1.8" />
+      <module name="day15" target="1.8" />
       <module name="demo1" target="1.8" />
       <module name="feign-client" target="1.8" />
       <module name="hystrix-dashboard-service" target="1.8" />
       <module name="hystrix-service" target="1.8" />
+      <module name="neo4j-demo" target="1.8" />
       <module name="provider" target="1.8" />
       <module name="server-eureka" target="1.8" />
       <module name="server-security-eureka" target="1.8" />
@@ -83,10 +87,12 @@
       <module name="day10" options="-parameters" />
       <module name="day11-listener" options="-parameters" />
       <module name="day11-publish" options="-parameters" />
+      <module name="day15" options="-parameters" />
       <module name="demo1" options="-parameters" />
       <module name="feign-client" options="-parameters" />
       <module name="hystrix-dashboard-service" options="-parameters" />
       <module name="hystrix-service" options="-parameters" />
+      <module name="neo4j-demo" options="-parameters" />
       <module name="provider" options="-parameters" />
       <module name="server-eureka" options="-parameters" />
       <module name="server-security-eureka" options="-parameters" />
